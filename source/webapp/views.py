@@ -24,4 +24,39 @@ def sum_calc(request):
         list2 = list(map(int, list1))
         global actual
         actual = list2
+        return HttpResponse(check_1(request, actual))
+
+
+def check_1(request, actual):
+    try:
+        result_actual = [int(x) for x in actual]
+        if len(result_actual) < 4 or len(result_actual) > 4:
+            result = "Enter a number in the amount of 4"
+            context = {
+                "Result": result,
+            }
+            return render(request, 'create.html', context)
+        set_actual = set(result_actual)
+        if len(result_actual) == len(set_actual):
+            pass
+        else:
+            result = "Contain the same numbers!"
+            context = {
+                "Result": result,
+            }
+            return render(request, 'create.html', context)
+        list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        for i in result_actual:
+            if i not in list:
+                result = "Enter numbers in the range 1-9"
+                context = {
+                    "Result": result,
+                }
+                return render(request, 'create.html', context)
+    except ValueError:
+        result = "The value should be integers"
+        context = {
+            "Result": result,
+        }
+        return render(request, 'create.html', context)
 
