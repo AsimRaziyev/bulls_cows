@@ -59,4 +59,29 @@ def check_1(request, actual):
             "Result": result,
         }
         return render(request, 'create.html', context)
-
+    # print(secret)
+    bulls = 0
+    cows = 0
+    for i in range(len(actual)):
+        if actual[i] == secret[i]:
+            bulls += 1
+        elif actual[i] in secret:
+            cows += 1
+    if bulls == 4:
+        result = f' Winner {bulls} bulls'
+        context = {
+            "Result": result,
+        }
+        return render(request, 'create.html', context)
+    elif bulls or cows:
+        result = f'bulls {bulls}, cows {cows}'
+        context = {
+            "Result": result,
+        }
+        return render(request, 'create.html', context)
+    else:
+        result = 'No identical numbers'
+        context = {
+            "Result": result,
+        }
+        return render(request, 'create.html', context)
